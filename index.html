@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DesaFlix V2 - Premium Cinema Hub</title>
+    <title>DesaFlix V2 - Premium Video Player</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* CSS VARIABEL UNTUK TEMA (DARK/LIGHT) */
+        /* SINKRONISASI VARIABEL TEMA KONSISTEN DENGAN INDEX */
         [data-bs-theme="dark"] {
             --body-bg: #060913;
             --card-bg: #0f1626;
@@ -19,7 +19,6 @@
             --navbar-bg: rgba(15, 22, 38, 0.85);
             --border-color: rgba(255, 255, 255, 0.08);
             --search-bg: rgba(6, 9, 19, 0.6);
-            --paging-btn-bg: rgba(255, 255, 255, 0.03);
             --footer-bg: #0b101d;
         }
 
@@ -31,12 +30,11 @@
             --navbar-bg: rgba(255, 255, 255, 0.85);
             --border-color: rgba(15, 23, 42, 0.08);
             --search-bg: rgba(241, 245, 249, 0.9);
-            --paging-btn-bg: rgba(0, 0, 0, 0.03);
             --footer-bg: #f1f5f9;
         }
 
         :root {
-            --primary-color: #10b981; /* Hijau Emerald */
+            --primary-color: #10b981;
             --primary-glow: rgba(16, 185, 129, 0.3);
         }
 
@@ -45,15 +43,14 @@
             background-color: var(--body-bg);
             color: var(--text-main);
             min-height: 100vh;
-            padding-top: 70px;
-            padding-bottom: 0px;
+            padding-top: 90px;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Poppins', sans-serif; }
         a { text-decoration: none; }
 
-        /* NAVBAR HEADER */
+        /* HEADER & NAVBAR (SAMA DENGAN INDEX) */
         .navbar {
             background-color: var(--navbar-bg) !important;
             backdrop-filter: blur(20px) saturate(180%);
@@ -75,6 +72,57 @@
         .search-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 4px var(--primary-glow); }
         .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; color: var(--text-main); }
 
+        /* REVISI DROPDOWN MOBILE: GARIS PEMBATAS ANTAR TULISAN MENU */
+        @media (max-width: 991.98px) {
+    /* --- TAMBAHKAN CSS UNTUK EFEK MELAYANG INI --- */
+    .navbar {
+        top: 12px; /* Jarak dari atas layar biar lepas/melayang */
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px) !important; /* Biar ada jarak kanan-kiri */
+        border-radius: 16px; /* Sudut melengkung biar berasa terisolasi */
+        border: 1px solid var(--border-color); /* Garis tepi tipis penegas efek kaca */
+        
+        /* Bayangan tegas yang bikin efeknya bener-bener kayak ngambang di atas konten */
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25); 
+        
+        padding: 10px 0;
+        transition: all 0.3s ease;
+    }
+
+    /* Sesuaikan dropdown menu mobile biar melengkungnya serasi dengan navbar luar */
+    .navbar-collapse { 
+        background-color: var(--card-bg); 
+        margin-top: 10px; 
+        padding: 14px; 
+        border-radius: 12px; 
+        border: 1px solid var(--border-color); 
+    }
+    
+    /* ... sisa kode di dalam media query 991.98px yang lama tetep biarin ... */
+    .navbar-nav .nav-item { border-bottom: 1px solid var(--border-color); }
+    .navbar-nav .nav-item:last-child { border-bottom: none; }
+    .navbar-nav .nav-link { padding: 12px 10px !important; }
+}
+            
+            .navbar-collapse { 
+                background-color: var(--card-bg); 
+                margin-top: 12px; 
+                padding: 14px; 
+                border-radius: 14px; 
+                border: 1px solid var(--border-color); 
+            }
+            .navbar-nav .nav-item {
+                border-bottom: 1px solid var(--border-color);
+            }
+            .navbar-nav .nav-item:last-child {
+                border-bottom: none; /* Menu terakhir tidak pakai garis */
+            }
+            .navbar-nav .nav-link {
+                padding: 12px 10px !important;
+            }
+        }
+
         .navbar-nav .nav-link { color: var(--text-main); font-size: 14px; font-weight: 500; padding: 8px 18px !important; border-radius: 8px; transition: all 0.2s; }
         .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active { color: var(--primary-color) !important; background-color: rgba(16, 185, 129, 0.08); }
 
@@ -86,124 +134,62 @@
         .theme-toggle-btn:hover { border-color: var(--primary-color); color: var(--primary-color); box-shadow: 0 0 10px var(--primary-glow); }
         .header-avatar { width: 38px; height: 38px; background: linear-gradient(135deg, var(--primary-color), #059669); color: #060913; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
 
-        /* REVISI MOBILE DROPDOWN: TAMBAHKAN GARIS PEMBATAS UNTUK INDEX */
-@media (max-width: 991.98px) {
-    .navbar-collapse { 
-        background-color: var(--card-bg); 
-        margin-top: 12px; 
-        padding: 14px; 
-        border-radius: 14px; 
-        border: 1px solid var(--border-color); 
-    }
-    .navbar-nav .nav-item {
-        border-bottom: 1px solid var(--border-color);
-    }
-    .navbar-nav .nav-item:last-child {
-        border-bottom: none; /* Biar menu terakhir bersih tanpa garis bawah */
-    }
-    .navbar-nav .nav-link {
-        padding: 12px 10px !important; /* Memberikan ruang ketukan yang pas di HP */
-    }
-}
-
-        /* FILTER & SWITCHER CONTAINER CONTROL */
-        .filter-control-wrapper {
-            display: flex; align-items: center; justify-content: space-between; gap: 15px;
-            max-width: 1200px; margin: 0 auto 24px auto;
-        }
-        .category-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; flex-grow: 1; }
-        .category-scroll::-webkit-scrollbar { display: none; }
-        .chip-filter { background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 18px; border-radius: 20px; font-size: 13px; white-space: nowrap; transition: all 0.2s; }
-        .chip-filter.active, .chip-filter:hover { background-color: var(--primary-color); color: var(--body-bg); border-color: var(--primary-color); font-weight: 600; }
-
-        /* LAYOUT SWITCHER BUTTON DESIGN */
-        .layout-switcher-container { display: flex; gap: 6px; background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 4px; border-radius: 12px; flex-shrink: 0; }
-        .switch-layout-btn {
-            background: none; border: none; color: var(--text-main); width: 36px; height: 36px; 
-            border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: all 0.2s;
-        }
-        .switch-layout-btn:hover { color: var(--primary-color); }
-        .switch-layout-btn.active { background-color: var(--primary-color); color: #060913 !important; }
-
-        /* ==========================================================================
-           DYNAMIC SYSTEM GRID & LIST CONTROLLER ENGINE
-           ========================================================================== */
-        .cinema-main-wrapper { max-width: 1200px; margin: 0 auto; }
+        /* PLAYER AREA WORKSPACE */
+        .player-workspace { max-width: 1200px; margin: 0 auto 40px auto; }
         
-        /* --- 1. KONDISI PRESET: MODE GRID --- */
-        .cinema-main-wrapper.mode-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+        .video-embed-box {
+            width: 100%; aspect-ratio: 16 / 9; background-color: #000;
+            border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3); margin-bottom: 24px;
         }
-        .mode-grid .video-cinema-card { display: flex; flex-direction: column; height: 100%; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); background-color: var(--card-bg); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .mode-grid .thumb-wrapper { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background-color: #000; }
-        .mode-grid .cinema-card-body { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .mode-grid .cinema-card-title { font-size: 16px; font-weight: 600; color: var(--text-title); margin-bottom: 8px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .mode-grid .cinema-card-desc { font-size: 13px; color: var(--text-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 15px; opacity: 0.85; }
-        .mode-grid .cinema-card-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; opacity: 0.7; border-top: 1px solid var(--border-color); padding-top: 14px; }
+        .video-embed-box iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- 2. KONDISI PRESET: MODE LIST --- */
-        .cinema-main-wrapper.mode-list {
-            display: flex; flex-direction: column; gap: 12px; max-width: 900px; margin: 0 auto;
+        .player-meta-card {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 18px; padding: 24px; margin-bottom: 24px;
         }
-        .mode-list .video-cinema-card { display: flex; flex-direction: row; height: 170px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); background-color: var(--card-bg); transition: all 0.3s ease; }
-        .mode-list .thumb-wrapper { width: 300px; height: 100%; position: relative; overflow: hidden; flex-shrink: 0; background-color: #000; }
-        .mode-list .cinema-card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-        .mode-list .cinema-card-title { font-size: 17px; font-weight: 600; color: var(--text-title); margin-bottom: 6px; }
-        .mode-list .cinema-card-desc { font-size: 13.5px; color: var(--text-main); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; opacity: 0.8; }
-        .mode-list .cinema-card-meta { display: flex; align-items: center; gap: 10px; font-size: 12.5px; opacity: 0.7; }
+        .video-main-title { font-size: 22px; font-weight: 700; color: var(--text-title); margin-bottom: 16px; line-height: 1.4; }
+        
+        .video-info-row { border-top: 1px solid var(--border-color); padding-top: 16px; }
+        .author-badge { font-weight: 600; color: var(--text-title); display: inline-flex; align-items: center; }
 
-        /* UNIVERSAL CARD HOVER EFFECT */
-        .video-cinema-card:hover { transform: translateY(-4px); border-color: var(--primary-color); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.12); }
-        .video-cinema-card:hover .thumb-wrapper img { transform: scale(1.05); }
-        .thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .badge-timestamp { position: absolute; bottom: 12px; right: 12px; background-color: rgba(6, 9, 19, 0.85); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-
-        /* RESPONSIVE BREAKPOINT CONTROLLER */
-        @media (max-width: 1199.98px) {
-            .cinema-main-wrapper.mode-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        /* WADAH DESKRIPSI VIDEO PREMIUM */
+        .video-description-box {
+            margin-top: 20px;
+            text-align: justify;
+            padding: 14px;
+            background-color: rgba(6, 9, 19, 0.4);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
         }
 
-        @media (max-width: 767.98px) {
-            body { padding-bottom: 95px; }
-            /* Penyesuaian Mode Grid di HP */
-            .cinema-main-wrapper.mode-grid { grid-template-columns: 1fr; gap: 12px; }
-            .mode-grid .thumb-wrapper {
-        aspect-ratio: 21 / 9; /* Khusus di HP tinggi thumbnail menyusut */
-    }
-            /* Penyesuaian Mode List di HP (Lebih Padat) */
-            .cinema-main-wrapper.mode-list .video-cinema-card { height: 140px; gap: 0; }
-            .cinema-main-wrapper.mode-list .thumb-wrapper { width: 200px; }
-            .cinema-main-wrapper.mode-list .cinema-card-body { padding: 12px; }
-            .cinema-main-wrapper.mode-list .cinema-card-title { font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-            .cinema-main-wrapper.mode-list .cinema-card-desc { display: none; }
-            .cinema-main-wrapper.mode-list .cinema-card-meta { font-size: 11px; }
+        /* REKOMENDASI PANEL (ASIDE LIST) */
+        .aside-heading-wrapper { 
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 16px; 
         }
-
-        @media (max-width: 480px) {
-            .cinema-main-wrapper.mode-list .video-cinema-card { height: 115px; }
-            .cinema-main-wrapper.mode-list .thumb-wrapper { width: 145px; }
-            .cinema-main-wrapper.mode-list .cinema-card-title { font-size: 13px; }
-            .cinema-main-wrapper.mode-list .cinema-card-meta { font-size: 10px; gap: 4px; }
+        .aside-heading { font-size: 15px; font-weight: 700; color: var(--text-title); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0; }
+        .recommendation-list { display: flex; flex-direction: column; gap: 16px; }
+        
+        .rec-item-card { 
+            display: flex; gap: 12px; background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden;
+            transition: all 0.25s ease; height: 85px;
         }
+        .rec-item-card:hover { transform: translateX(4px); border-color: var(--primary-color); }
+        .rec-thumb { width: 130px; height: 100%; position: relative; flex-shrink: 0; background-color: #000; }
+        .rec-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .rec-body { padding: 10px 12px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+        .rec-title { font-size: 13px; font-weight: 600; color: var(--text-title); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
+        .rec-meta { font-size: 11px; opacity: 0.7; display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
-        /* PAGINATION CONTROLLER */
-        .premium-pagination-container { display: flex; justify-content: center; align-items: center; gap: 12px; max-width: 1200px; margin: 40px auto; }
-        .paging-btn {
-            background-color: var(--paging-btn-bg); border: 1px solid var(--border-color); color: var(--text-title); padding: 10px 22px; border-radius: 12px;
-            font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.25s ease; user-select: none;
-        }
-        .paging-btn:hover:not(:disabled) { background-color: var(--primary-color); color: #060913; border-color: var(--primary-color); }
-        .paging-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .paging-info { background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-title); height: 44px; padding: 0 20px; border-radius: 12px; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-        .paging-info span { color: var(--primary-color); margin: 0 4px; }
-
-        @media (max-width: 767.98px) {
-            .premium-pagination-container { margin: 25px auto; }
-            .paging-btn span { display: none; }
-            .paging-info { font-size: 12px; height: 40px; padding: 0 14px; }
-        }
-
-        /* PREMIUM WEB FOOTER */
+        /* FOOTER (SAMA DENGAN INDEX) */
         .premium-web-footer { background-color: var(--footer-bg); border-top: 1px solid var(--border-color); padding: 60px 0 30px 0; margin-top: 60px; transition: background-color 0.3s ease; }
         .footer-brand { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: var(--text-title); margin-bottom: 16px; }
         .footer-brand span { color: var(--primary-color); }
@@ -219,42 +205,12 @@
         .footer-bottom-bar { border-top: 1px solid var(--border-color); margin-top: 45px; padding-top: 25px; font-size: 13px; color: var(--text-main); opacity: 0.7; }
 
         @media (max-width: 991.98px) { .premium-web-footer { display: none !important; } }
-@media (max-width: 991.98px) {
-    /* --- TAMBAHKAN CSS UNTUK EFEK MELAYANG INI --- */
-    .navbar {
-        top: 12px; /* Jarak dari atas layar biar lepas/melayang */
-        left: 12px;
-        right: 12px;
-        width: calc(100% - 24px) !important; /* Biar ada jarak kanan-kiri */
-        border-radius: 14px; /* Sudut melengkung biar berasa terisolasi */
-        border: 1px solid var(--border-color); /* Garis tepi tipis penegas efek kaca */
-        
-        /* Bayangan tegas yang bikin efeknya bener-bener kayak ngambang di atas konten */
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25); 
-        
-        padding: 10px 0;
-        transition: all 0.3s ease;
-    }
 
-    /* Sesuaikan dropdown menu mobile biar melengkungnya serasi dengan navbar luar */
-    .navbar-collapse { 
-        background-color: var(--card-bg); 
-        margin-top: 10px; 
-        padding: 14px; 
-        border-radius: 14px; 
-        border: 1px solid var(--border-color); 
-    }
-    
-    /* ... sisa kode di dalam media query 991.98px yang lama tetep biarin ... */
-    .navbar-nav .nav-item { border-bottom: 1px solid var(--border-color); }
-    .navbar-nav .nav-item:last-child { border-bottom: none; }
-    .navbar-nav .nav-link { padding: 12px 10px !important; }
-}
-        /* BOTTOM NAV BAR MOBILE */
+        /* BOTTOM NAV BAR MOBILE (SAMA DENGAN INDEX) */
         .bottom-nav-bar {
             position: fixed; bottom: 16px; left: 16px; right: 16px;
             background-color: var(--navbar-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); 
-            border: 1px solid var(--border-color); border-radius: 10px;
+            border: 1px solid var(--border-color); border-radius: 20px;
             display: flex; justify-content: space-around; align-items: center; padding: 10px 0; z-index: 1050; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         .bottom-nav-item { background: none; border: none; color: var(--text-main); display: flex; flex-direction: column; align-items: center; position: relative; padding: 6px 14px; transition: all 0.3s ease; }
@@ -266,48 +222,14 @@
         .bottom-nav-item.active::after { background-color: var(--primary-color); box-shadow: 0 0 8px var(--primary-color); width: 12px; border-radius: 4px; }
 
         @media (min-width: 992px) { .bottom-nav-bar { display: none !important; } }
-        /* DUMMY PLAY BUTTON GLASSMORPHISM EFFECT */
-        .play-btn-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 18px;
-            opacity: 0; /* Sembunyikan di awal */
-            z-index: 2;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
 
-        /* Efek ikon play sedikit digeser ke kanan agar pas di tengah lingkaran secara visual */
-        .play-btn-overlay i {
-            margin-left: 3px;
-            transition: transform 0.3s ease;
-        }
-
-        /* CARD HOVER EFFECT - Memunculkan Tombol Play */
-        .video-cinema-card:hover .play-btn-overlay {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            background: rgba(16, 185, 129, 0.8); /* Berubah jadi hijau emerald bawaan tema lu saat di-hover */
-            border-color: var(--primary-color);
-            color: #060913; /* Warna icon mengikuti bg body utama */
-            box-shadow: 0 0 20px var(--primary-glow);
-        }
-
-        .video-cinema-card:hover .play-btn-overlay i {
-            transform: scale(1.1);
+        /* RESPONSIVE LAYOUT HP UNTUK AREA PLAYER */
+        @media (max-width: 767.98px) {
+            body { padding-bottom: 95px; padding-top: 80px; }
+            .video-main-title { font-size: 17px; margin-bottom: 12px; }
+            .player-meta-card { padding: 16px; border-radius: 14px; }
+            .video-embed-box { border-radius: 12px; margin-bottom: 16px; }
+            .video-description-box { font-size: 12.5px; padding: 12px; margin-top: 14px; }
         }
     </style>
 </head>
@@ -315,13 +237,13 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><i class="fa-solid fa-film me-3" style="color: var(--primary-color);"></i>Vlog<span>Flix</span></a>
+            <a class="navbar-brand" href="index.html">Desa<span>Flix</span></a>
             
             <div class="d-flex align-items-center gap-2 order-lg-last">
                 <button class="theme-toggle-btn" onclick="toggleTheme()" title="Ganti Tema">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
                 </button>
-                <div class="header-avatar d-none d-sm-flex">VF</div>
+                <div class="header-avatar d-none d-sm-flex">AD</div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#desaFlixNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -329,7 +251,7 @@
 
             <div class="collapse navbar-collapse" id="desaFlixNavbar">
                 <ul class="navbar-nav me-auto mb-3 mb-lg-0 gap-1">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Kategori</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Trending</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Tentang</a></li>
@@ -337,45 +259,45 @@
                 
                 <div class="search-box mx-lg-3 my-2 my-lg-0" style="max-width: 320px;">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" class="search-input" id="searchField" placeholder="" oninput="filterSearch(this.value)">
+                    <input type="text" class="search-input" placeholder="Cari konten video..." onkeydown="if(event.key === 'Enter') window.location.href='index.html'">
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="container my-4">
-        
-        <div class="filter-control-wrapper">
-            <div class="category-scroll" id="categoryChipsContainer">
-                <button class="chip-filter active" onclick="filterCategory('Semua Konten')">Semua Konten</button>
-                <button class="chip-filter" onclick="filterCategory('Film Pendek')">Film Pendek</button>
-                <button class="chip-filter" onclick="filterCategory('Explore')">Explore</button>
-                <button class="chip-filter" onclick="filterCategory('Adventure')">Adventure</button>
-                <button class="chip-filter" onclick="filterCategory('Traveling')">Traveling</button>
-            </div>
+        <div class="row g-4 player-workspace">
             
-            <div class="layout-switcher-container">
-                <button class="switch-layout-btn" id="btnModeGrid" onclick="changeDisplayMode('grid')" title="Mode Kotak Grid">
-                    <i class="fa-solid fa-table-cells-large"></i>
-                </button>
-                <button class="switch-layout-btn" id="btnModeList" onclick="changeDisplayMode('list')" title="Mode Baris List">
-                    <i class="fa-solid fa-list"></i>
-                </button>
-            </div>
-        </div>
+            <div class="col-lg-8">
+                <div class="video-embed-box">
+                    <iframe id="mainVideoFrame" src="" allowfullscreen allow="autoplay"></iframe>
+                </div>
 
-        <div class="cinema-main-wrapper mode-grid" id="cinemaGridContainer"></div>
+                <div class="player-meta-card">
+                    <h1 class="video-main-title" id="mainVideoTitle">Memuat judul video...</h1>
+                    
+                    <div class="video-info-row d-flex justify-content-between align-items-center w-100">
+                        <span class="author-badge" id="mainVideoAuthor">
+                            <i class="fa-solid fa-circle-user me-2 text-success fs-5"></i>--
+                        </span>
+                        <span id="mainVideoViews">
+                            <i class="fa-regular fa-eye me-1 text-success"></i>-- x ditonton
+                        </span>
+                    </div>
 
-        <div class="premium-pagination-container" id="paginationWrapper">
-            <button class="paging-btn" id="btnPrevPage" onclick="goToPreviousPage()">
-                <i class="fa-solid fa-chevron-left"></i><span>Prev</span>
-            </button>
-            <div class="paging-info">
-                Page <span id="currentPageNum">1</span> dari <span id="totalPageNum">1</span>
+                    <div class="video-description-box" id="mainVideoDesc">
+                        Memuat deskripsi video...
+                    </div>
+                </div>
             </div>
-            <button class="paging-btn" id="btnNextPage" onclick="goToNextPage()">
-                <span>Next</span><i class="fa-solid fa-chevron-right"></i>
-            </button>
+
+            <div class="col-lg-4">
+                <div class="aside-heading-wrapper">
+                    <h3 class="aside-heading">Video Lainnya</h3>
+                </div>
+                <div class="recommendation-list" id="asideRecommendationWrapper"></div>
+            </div>
+
         </div>
     </div>
 
@@ -383,7 +305,7 @@
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-5 col-md-6">
-                    <div class="footer-brand"><i class="fa-solid fa-film me-3" style="color: var(--primary-color);"></i>Vlog<span>Flix</span></div>
+                    <div class="footer-brand">Desa<span>Flix</span></div>
                     <p class="footer-text mb-3">Portal pusat dokumentasi multimedia, film kreatif, edukasi mandiri, dan transparansi informasi publik terintegrasi.</p>
                     <div class="footer-social-box">
                         <a href="#" class="social-round-btn"><i class="fa-brands fa-youtube"></i></a>
@@ -408,71 +330,37 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <div class="footer-bottom-bar">2026 <strong>VlogFlix Hub</strong>. All Rights Reserved.</div>
+                    <div class="footer-bottom-bar">&copy; 2026 <strong>DesaFlix Hub</strong>. All Rights Reserved.</div>
                 </div>
             </div>
         </div>
     </footer>
 
     <div class="bottom-nav-bar">
-        <button class="bottom-nav-item active" onclick="handleNavClick(this)">
+        <button class="bottom-nav-item" onclick="window.location.href='index.html'">
             <i class="fa-solid fa-house"></i><span>Beranda</span>
         </button>
-        <button class="bottom-nav-item" onclick="handleNavClick(this)">
-            <i class="fa-solid fa-compass"></i><span>Eksplorasi</span>
+        <button class="bottom-nav-item active">
+            <i class="fa-solid fa-compass"></i><span>Streaming</span>
         </button>
-        <button class="bottom-nav-item" onclick="handleNavClick(this)">
+        <button class="bottom-nav-item">
             <i class="fa-solid fa-bookmark"></i><span>Simpan</span>
         </button>
-        <button class="bottom-nav-item" onclick="handleNavClick(this)">
+        <button class="bottom-nav-item">
             <i class="fa-solid fa-user"></i><span>Profil</span>
         </button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        let localDatabase = [];
-        let globalFilteredData = []; 
-        let currentActiveCategory = "Semua Konten";
-        
-        let currentPage = 1;
-        const itemsPerPage = 6; 
+        let fullDatabase = [];
 
-        // LOGIKAL UTAMA LAYOUT CONTROLLER SWITCHER
-        function changeDisplayMode(targetMode) {
-            const container = document.getElementById('cinemaGridContainer');
-            const btnGrid = document.getElementById('btnModeGrid');
-            const btnList = document.getElementById('btnModeList');
-
-            if (targetMode === 'list') {
-                container.classList.remove('mode-grid');
-                container.classList.add('mode-list');
-                btnList.classList.add('active');
-                btnGrid.classList.remove('active');
-                localStorage.setItem('displayLayoutPreference', 'list');
-            } else {
-                container.classList.remove('mode-list');
-                container.classList.add('mode-grid');
-                btnGrid.classList.add('active');
-                btnList.classList.remove('active');
-                localStorage.setItem('displayLayoutPreference', 'grid');
-            }
-            
-            // Render ulang agar data menyesuaikan struktur class baru
-            calculateAndRenderPage();
-        }
-
-        function applySavedLayoutAndTheme() {
-            // 1. Ambil Preferensi Tema
+        // 1. Sinkronisasi Awal Setelan Tema dari LocalStorage Pengguna
+        function applySavedTheme() {
             const savedTheme = localStorage.getItem('themePreference') || 'dark';
             document.getElementById('htmlTag').setAttribute('data-bs-theme', savedTheme);
             document.getElementById('themeIcon').className = savedTheme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
-
-            // 2. Ambil Preferensi Layout (Default diatur ke Grid agar desktop & mobile selaras di awal)
-            const savedLayout = localStorage.getItem('displayLayoutPreference') || 'grid';
-            changeDisplayMode(savedLayout);
         }
 
         function toggleTheme() {
@@ -491,134 +379,84 @@
             }
         }
 
-        function formatTanggalIndo(stringTanggal) {
-            if(!stringTanggal) return "";
-            return new Date(stringTanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        // 2. Deteksi Parameter ID Video dari URL (Contoh: player.html?id=2)
+        function getVideoIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
         }
 
-        async function loadCinemaDatabase() {
-            applySavedLayoutAndTheme();
+        // 3. Tarik Database videos.json dan Jalankan Render
+        async function initPlayerSystem() {
+            applySavedTheme();
+            const currentId = getVideoIdFromUrl();
+
             try {
                 const response = await fetch('videos.json');
-                localDatabase = await response.json();
-                globalFilteredData = [...localDatabase];
-                calculateAndRenderPage();
+                fullDatabase = await response.json();
+
+                // Cari video yang ID-nya cocok dengan parameter URL
+                const targetVideo = fullDatabase.find(v => v.id == currentId);
+
+                if (targetVideo) {
+                    renderMainTheater(targetVideo);
+                    renderAsideRecommendations(currentId);
+                } else {
+                    // Proteksi jika ID tidak valid, arahkan ke video pertama yang ada
+                    if(fullDatabase.length > 0) {
+                        renderMainTheater(fullDatabase[0]);
+                        renderAsideRecommendations(fullDatabase[0].id);
+                    }
+                }
             } catch (error) {
-                console.error("Gagal sinkronisasi data:", error);
+                console.error("Sistem gagal memuat database video player:", error);
             }
         }
 
-        function calculateAndRenderPage() {
-            const totalItems = globalFilteredData.length;
-            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-            if (currentPage > totalPages) currentPage = totalPages;
-            if (currentPage < 1) currentPage = 1;
-
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const paginatedItems = globalFilteredData.slice(startIndex, endIndex);
-
-            renderCinemaGrid(paginatedItems);
-
-            document.getElementById('currentPageNum').innerText = currentPage;
-            document.getElementById('totalPageNum').innerText = totalPages;
+        // 4. Suntik Data Video Utama ke HTML Player (Termasuk Deskripsi)
+        function renderMainTheater(video) {
+            document.getElementById('mainVideoFrame').src = video.url;
+            document.getElementById('mainVideoTitle').innerText = video.title;
+            document.getElementById('mainVideoAuthor').innerHTML = `<i class="fa-solid fa-circle-user me-2 text-success fs-5"></i>${video.author}`;
+            document.getElementById('mainVideoViews').innerHTML = `<i class="fa-regular fa-eye me-1 text-success"></i>${video.views} x ditonton`;
             
-            document.getElementById('btnPrevPage').disabled = (currentPage === 1);
-            document.getElementById('btnNextPage').disabled = (currentPage === totalPages);
-
-            const pagingWrapper = document.getElementById('paginationWrapper');
-            if (totalItems <= itemsPerPage) {
-                pagingWrapper.style.setProperty('display', 'none', 'important');
-            } else {
-                pagingWrapper.style.setProperty('display', 'flex', 'important');
-            }
-        }
-function renderCinemaGrid(data) {
-    const gridContainer = document.getElementById('cinemaGridContainer');
-    gridContainer.innerHTML = "";
-
-    if (data.length === 0) {
-        gridContainer.innerHTML = `<div class="text-center text-white-50 my-5 py-5 w-100">Konten video tidak ditemukan...</div>`;
-        return;
-    }
-
-    data.forEach((video) => {
-        gridContainer.innerHTML += `
-            <a href="player.html?id=${video.id}" class="video-cinema-card">
-                <div class="thumb-wrapper">
-                    <img src="${video.thumbnail}" alt="Poster">
-                    <div class="play-btn-overlay">
-                        <i class="fa-solid fa-play"></i>
-                    </div>
-                    <span class="badge-timestamp">${video.duration}</span>
-                </div>
-                <div class="cinema-card-body">
-                    <div>
-                        <h4 class="cinema-card-title" align="justify">${video.title}</h4>
-                    </div>
-                    <div class="cinema-card-meta d-flex justify-content-between align-items-center w-100">
-                        <span class="meta-author">
-                            <i class="fa-solid fa-circle-user me-1 text-success"></i>${video.author}
-                        </span>
-                        <span class="meta-views">
-                            <i class="fa-regular fa-eye me-1 text-success"></i>${video.views} x ditonton
-                        </span>
-                    </div>
-                </div>
-            </a>
-        `;
-    });
-}
-        function goToPreviousPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                calculateAndRenderPage();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function goToNextPage() {
-            const totalPages = Math.ceil(globalFilteredData.length / itemsPerPage);
-            if (currentPage < totalPages) {
-                currentPage++;
-                calculateAndRenderPage();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function filterCategory(categoryName) {
-            currentActiveCategory = categoryName;
-            document.querySelectorAll('#categoryChipsContainer .chip-filter').forEach(chip => {
-                chip.classList.toggle('active', chip.innerText === categoryName);
-            });
-            currentPage = 1; 
-            executeCombinedFilter();
-        }
-
-        function filterSearch(query) { 
-            currentPage = 1; 
-            executeCombinedFilter(); 
-        }
-
-        function executeCombinedFilter() {
-            const searchQuery = document.getElementById('searchField').value.toLowerCase();
+            // Suntik data deskripsi panjang dari json
+            document.getElementById('mainVideoDesc').innerText = video.description || 'Tidak ada deskripsi untuk video ini.';
             
-            globalFilteredData = localDatabase.filter(video => {
-                const matchCategory = (currentActiveCategory === "Semua Konten" || video.category === currentActiveCategory);
-                const matchQuery = video.title.toLowerCase().includes(searchQuery) || video.author.toLowerCase().includes(searchQuery);
-                return matchCategory && matchQuery;
+            document.title = `${video.title} - DesaFlix Player`;
+        }
+
+        // 5. Render Daftar Rekomendasi di Samping (Kombinasi Kiri-Kanan Seimbang)
+        function renderAsideRecommendations(excludeId) {
+            const asideWrapper = document.getElementById('asideRecommendationWrapper');
+            asideWrapper.innerHTML = "";
+
+            // Saring video agar video yang sedang diputar tidak muncul kembali di daftar samping
+            const filteredRecommendations = fullDatabase.filter(v => v.id != excludeId);
+
+            if(filteredRecommendations.length === 0) {
+                asideWrapper.innerHTML = `<div class="text-muted small">Tidak ada video rekomendasi lainnya.</div>`;
+                return;
+            }
+
+            filteredRecommendations.forEach(video => {
+                asideWrapper.innerHTML += `
+                    <a href="player.html?id=${video.id}" class="rec-item-card">
+                        <div class="rec-thumb">
+                            <img src="${video.thumbnail}" alt="Thumbnail">
+                        </div>
+                        <div class="rec-body">
+                            <h4 class="rec-title">${video.title}</h4>
+                            <div class="rec-meta">
+                                <span><i class="fa-solid fa-circle-user me-1 text-success"></i>${video.author}</span>
+                                <span><i class="fa-regular fa-eye me-1 text-success"></i>${video.views}</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
             });
-
-            calculateAndRenderPage();
         }
 
-        function handleNavClick(button) {
-            document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-        }
-
-        window.onload = loadCinemaDatabase;
+        window.onload = initPlayerSystem;
     </script>
 </body>
 </html>
